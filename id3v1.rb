@@ -14,10 +14,7 @@ class ID3v1
 			file.seek(-128, IO::SEEK_END)
                         bytes = file.read
 
-                        tag = bytes[-128,3]
-                        if (tag != "TAG")
-                                raise "ID3 Tags Not Present."
-                        end
+                        @tag = bytes[-128,3]
 
                         @title   = bytes[-125, 30].strip # -128 + 3
                         @artist  = bytes[-95, 30].strip # -128 + 33
@@ -32,4 +29,8 @@ class ID3v1
                         file.close
                 end
         end
+
+	def has_id3?
+		@tag == "TAG"
+	end
 end
