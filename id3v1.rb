@@ -11,6 +11,7 @@ class ID3v1
                 begin
                         # Read in the file as a byte stream
                         file = File.open(filename, "rb")
+			file.seek(-128, IO::SEEK_END)
                         bytes = file.read
 
                         tag = bytes[-128,3]
