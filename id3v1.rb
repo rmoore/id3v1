@@ -2,6 +2,8 @@
 # Simple implementation of ID3v1 based on the spec found at
 # http://en.wikipedia.org/wiki/ID3
 
+require "genre"
+
 class ID3v1
         attr_reader :title, :artist, :album, :year, :comment, :genre
         def initialize(filename)
