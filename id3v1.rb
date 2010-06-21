@@ -2,9 +2,6 @@
 # Simple implementation of ID3v1 based on the spec found at
 # http://en.wikipedia.org/wiki/ID3
 
-# ToDo includes: ID3v1 extended, making it have write capacity, making
-# it a gem, including genre constants, and more
-
 class ID3v1
         attr_reader :title, :artist, :album, :year, :comment, :genre
         def initialize(filename)
