@@ -12,15 +12,9 @@ class ID3v1
                         file = File.open(filename, "rb")
 			file.seek(-128, IO::SEEK_END)
                         bytes = file.read
+			
+			parse_id3(bytes)
 
-                        @tag = bytes[-128,3]
-
-                        @title   = bytes[-125, 30].strip # -128 + 3
-                        @artist  = bytes[-95, 30].strip # -128 + 33
-                        @album   = bytes[-65, 30].strip # -128 + 63
-                        @year    = bytes[-35, 4].strip # -128 + 93
-                        @comment = bytes[-31, 30].strip # -128 + 97
-                        @genre   = bytes[-1, 1].strip # -128 + 127
                 rescue => err
                         puts err
                         exit
@@ -31,5 +25,31 @@ class ID3v1
 
 	def has_id3?
 		@tag == "TAG"
+	end
+
+	private
+	def parse_id3( data )
+		# Ensure we get 128 bytes, this is the only correct size for
+		# a valid id3 tag.
+		raise SyntaxError, "Wrong Tag Size" unless data.length == 128
+
+		# If we have tag, parse the data, otherwise it gets set to 
+		# blank.
+		@tag = data[0, 3]
+		if @tag == "TAG"
+			@title = data[3, 30].strip
+			@artist = data[33, 30].strip
+			@album = data[63, 30].strip
+			@year = data[93, 4].strip
+			@comment = data[97, 30].strip
+			@genre = data[127, 1].strip
+		else
+			@title = ""
+			@artist = ""
+			@album = ""
+			@year = ""
+			@comment = ""
+			@genre = ""
+		end
 	end
 end
