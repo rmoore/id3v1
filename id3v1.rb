@@ -5,23 +5,24 @@
 require "genre"
 
 class ID3v1
-        attr_reader :title, :artist, :album, :year, :comment, :genre
-        def initialize(filename)
-                begin
-                        # Read in the file as a byte stream
-                        file = File.open(filename, "rb")
+	attr_reader :title, :artist, :album, :year, :comment, :genre
+
+	def initialize(filename)
+		begin
+			# Read in the file as a byte stream
+			file = File.open(filename, "rb")
 			file.seek(-128, IO::SEEK_END)
-                        bytes = file.read
-			
+			bytes = file.read
+
 			parse_id3(bytes)
 
-                rescue => err
-                        puts err
-                        exit
-                ensure
-                        file.close
-                end
-        end
+		rescue => err
+			puts err
+			exit
+		ensure
+			file.close
+		end
+	end
 
 	def has_id3?
 		@tag == "TAG"
