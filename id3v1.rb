@@ -37,19 +37,19 @@ class ID3v1
 		# blank.
 		@tag = data[0, 3]
 		if @tag == "TAG"
-			@title = data[3, 30].strip
-			@artist = data[33, 30].strip
-			@album = data[63, 30].strip
-			@year = data[93, 4].strip
+			@title	 = data[3, 30].strip
+			@artist	 = data[33, 30].strip
+			@album	 = data[63, 30].strip
+			@year	 = data[93, 4].strip
 			@comment = data[97, 30].strip
-			@genre = data[127, 1].strip
+			@genre	 = data[127, 1].strip
 		else
-			@title = ""
-			@artist = ""
-			@album = ""
-			@year = ""
+			@title 	 = ""
+			@artist	 = ""
+			@album	 = ""
+			@year	 = ""
 			@comment = ""
-			@genre = ""
+			@genre	 = ""
 		end
 	end
 end
