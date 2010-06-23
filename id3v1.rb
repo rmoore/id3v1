@@ -17,8 +17,7 @@ class ID3v1
 			parse_id3(bytes)
 
 		rescue => err
-			puts err
-			exit
+			raise err # For now just pass the error up the chain.
 		ensure
 			file.close
 		end
