@@ -31,7 +31,7 @@ class ID3v1
 	def parse_id3( data )
 		# Ensure we get 128 bytes, this is the only correct size for
 		# a valid id3 tag.
-		raise SyntaxError, "Wrong Tag Size" unless data.length == 128
+		raise ArgumentError, "Wrong Tag Size" unless data.length == 128
 
 		# If we have tag, parse the data, otherwise it gets set to 
 		# blank.
