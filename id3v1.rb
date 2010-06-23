@@ -9,7 +9,7 @@ class ID3v1
 
 	def initialize(filename)
 		# Read in the file as a byte stream
-		@file = File.open(filename, "wb")
+		@file = File.open(filename, "r+b")
 		@file.seek(-128, IO::SEEK_END)
 		bytes = @file.read
 
@@ -44,5 +44,9 @@ class ID3v1
 			@comment = ""
 			@genre   = ""
 		end
+	end
+
+	def ensure_id3
+		
 	end
 end
