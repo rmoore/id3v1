@@ -8,19 +8,12 @@ class ID3v1
 	attr_reader :title, :artist, :album, :year, :comment, :genre
 
 	def initialize(filename)
-		begin
-			# Read in the file as a byte stream
-			file = File.open(filename, "rb")
-			file.seek(-128, IO::SEEK_END)
-			bytes = file.read
+		# Read in the file as a byte stream
+		@file = File.open(filename, "wb")
+		@file.seek(-128, IO::SEEK_END)
+		bytes = @file.read
 
-			parse_id3(bytes)
-
-		rescue => err
-			raise err # For now just pass the error up the chain.
-		ensure
-			file.close
-		end
+		parse_id3(bytes)
 	end
 
 	def has_id3?
