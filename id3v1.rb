@@ -47,6 +47,13 @@ class ID3v1
 	end
 
 	def ensure_id3
-		
+		if not has_id3?
+			# Generate an empty tag.
+			data = "TAG".ljust(128, 0.chr)
+
+			# Append it to the end of the file.
+			@file.seek(0, IO::SEEK_END)
+			@file << data
+		end
 	end
 end
