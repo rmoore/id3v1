@@ -99,6 +99,23 @@ class ID3v1
 		@comment = data.strip
 	end
 
+	def genre=(tag)
+		# make sure that we are getting 1 byte.
+		raise ArgumentError, "Invalid Arg" if tag.to_i < 0
+		raise ArgumentError, "Invalid Arg" if tag.to_i > 255
+		
+		ensure_id3
+		
+		# Convert data to single char.
+		data = tag.to_i.chr
+
+		# Write the tag to the file.
+		@file.seek(-1, IO::SEEK_END)
+		@file << data
+
+		# Update the reader
+		@genre = data.strip
+	end
 		
 	private
 	def parse_id3( data )
