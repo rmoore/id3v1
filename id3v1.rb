@@ -31,7 +31,7 @@ class ID3v1
 		data = tag[0, 30].ljust(30, 0.chr)
 		
 		# Write the tag to the file
-		@file.seek(-125, IE::SEEK_END)
+		@file.seek(-125, IO::SEEK_END)
 		@file << data
 
 		# Update the reader
