@@ -12,7 +12,7 @@ class ID3v1
 			# Read in the file as a byte stream
 			file = File.open(filename, "rb")
 			file.seek(-128, IO::SEEK_END)
-			bytes = file.read
+			bytes = file.read(128)
 
 			parse_id3(bytes)
 
