@@ -65,7 +65,25 @@ class ID3v1
 		# Update the reader
 		@album = data.strip
 	end
-		
+
+	def year=(tag)
+		# This might have to be redone so it is overloaded for various
+		# year notations (string, int, Date, etc...) For now, we will
+		# do a .to_s to ensure we have a string.
+
+		ensure_id3	
+
+		# Ensure the tag is stripped and padded to 4 bytes. (Year in
+		# string notation YYYY).
+		data = tag.to_s[0, 4].ljust(4, 0.chr)
+
+		# Write the tag to the file.
+		@file.seek(-35, IO::SEEK_END)
+		@file << data
+
+		# Update the reader.
+		@year = data.strip
+	end
 
 	private
 	def parse_id3( data )
