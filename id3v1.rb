@@ -31,8 +31,7 @@ class ID3v1
 		data = tag[0, 30].ljust(30, 0.chr)
 		
 		# Write the tag to the file
-		@file.seek(-125, IO::SEEK_END)
-		@file << data
+		write_data_at_offset(-125, data)
 
 		# Update the reader
 		@title = data.strip
@@ -45,8 +44,7 @@ class ID3v1
 		data = tag[0, 30].ljust(30, 0.chr)
 
 		# Write the tag to the file.
-		@file.seek(-95, IO::SEEK_END)
-		@file << data
+		write_data_at_offset(-95, data)
 
 		# Update the reader
 		@artist = data.strip
@@ -59,8 +57,7 @@ class ID3v1
 		data = tag[0, 30].ljust(30, 0.chr)
 
 		# Write the tag to the file.
-		@file.seek(-65, IO::SEEK_END)
-		@file << data
+		write_data_at_offset(-65, data)
 
 		# Update the reader
 		@album = data.strip
@@ -78,8 +75,7 @@ class ID3v1
 		data = tag.to_s[0, 4].ljust(4, 0.chr)
 
 		# Write the tag to the file.
-		@file.seek(-35, IO::SEEK_END)
-		@file << data
+		write_data_at_offset(-35, data)
 
 		# Update the reader.
 		@year = data.strip
@@ -92,8 +88,7 @@ class ID3v1
 		data = tag[0, 30].ljust(30, 0.chr)
 
 		# Write the tag to the file.
-		@file.seek(-31, IO::SEEK_END)
-		@file << data
+		write_data_at_offset(-31, data)
 
 		# Update the reader
 		@comment = data.strip
@@ -110,8 +105,7 @@ class ID3v1
 		data = tag.to_i.chr
 
 		# Write the tag to the file.
-		@file.seek(-1, IO::SEEK_END)
-		@file << data
+		write_data_at_offset(-1, data)
 
 		# Update the reader
 		@genre = data.strip
@@ -152,5 +146,11 @@ class ID3v1
 			@file.seek(0, IO::SEEK_END)
 			@file << data
 		end
+	end
+
+	# This function will write `data` at `offset` from the end of the file.
+	def write_data_at_offset(offset, data)
+		@file.seek(offset.to_i, IO::SEEK_END)
+		@file << data
 	end
 end
