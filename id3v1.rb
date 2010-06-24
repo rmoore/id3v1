@@ -38,6 +38,20 @@ class ID3v1
 		@title = data.strip
 	end
 
+	def artist=(tag)
+		ensure_id3
+
+		# Ensure the tag is stripped and padded to 30 bytes.
+		data = tag[0, 30].ljust(30, 0.chr)
+
+		# Write the tag to the file.
+		@file.seek(-95, IO::SEEK_END)
+		@file << data
+
+		# Update the reader
+		@artist = data.strip
+	end
+
 	private
 	def parse_id3( data )
 		# Ensure we get 128 bytes, this is the only correct size for
