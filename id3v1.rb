@@ -16,6 +16,10 @@ class ID3v1
 		parse_id3(bytes)
 	end
 
+	def close
+		@file.close
+	end
+
 	def has_id3?
 		@tag == "TAG"
 	end
